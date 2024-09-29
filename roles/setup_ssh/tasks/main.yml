@@ -1,5 +1,5 @@
 - name: Install OpenSSH server
-  package:
+  apt:
     name: openssh-server
     state: present
 
@@ -7,7 +7,7 @@
   systemd:
     name: sshd
     enabled: yes
-    state: started
+    state: enabled
 
 - name: Ensure .ssh directory exists and has proper permissions
   file:
