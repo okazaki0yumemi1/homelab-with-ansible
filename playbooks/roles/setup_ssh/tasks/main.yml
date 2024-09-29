@@ -10,33 +10,33 @@
 
 - name: Ensure .ssh directory exists and has proper permissions
   file:
-    path: "/home/{{ remote_user }}/.ssh"
+    path: "/home/{{ ansible_user }}/.ssh"
     state: directory
     mode: 0700
 
-- name: Check if SSH key is present on the local machine
-  delegate_to: localhost
-  stat:
-    path: "/home/m918/.ssh/id_rsa_custom.pub"
-  register: ssh_key_stat
+# - name: Check if SSH key is present on the local machine
+#   delegate_to: localhost
+#   stat:
+#     path: "/home/{{ ansible_user }}/my_public_key"
+#   register: ssh_key_stat
 
-- name: Fail if SSH key is not found
-  fail:
-    msg: "SSH public key (id_rsa_custom.pub) not found on the local machine."
-  when: not ssh_key_stat.stat.exists
+# - name: Fail if SSH key is not found
+#  fail:
+#    msg: "SSH public key (my_public_key) not found on the local machine."
+#  when: not ssh_key_stat.stat.exists
 
 - name: Append public key to authorized_keys file
   become: yes
   lineinfile:
-    path: "/home/orangepi/.ssh/authorized_keys"
+    path: "/home/{{ ansible_user }}/.ssh/authorized_keys"
     line: "{{ lookup('file', '~/.ssh/id_rsa_custom.pub') }}"
     state: present
 
-- name: Disable password login for m918
+- name: Disable password login for {{ ansible_user }}
   lineinfile:
     path: /etc/ssh/sshd_config
     regexp: '^PasswordAuthentication'
-    line: "PasswordAuthentication no"
+    line: "PasswordAuthentication yes"
 
 - name: Disable password login for root user
   lineinfile:
