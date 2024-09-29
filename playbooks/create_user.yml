@@ -7,3 +7,8 @@
   hosts: all
     import_roles:
       - ../roles/setup_ssh
+
+- name: Install Docker on remote machine
+  hosts: all
+    import_roles:
+      - ../roles/install_docker
