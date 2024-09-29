@@ -5,6 +5,7 @@
       groups: wheel
       append: yes
 
+#probably will not work=
   - name: Set up sudo for user m918 without password
     copy:
       dest: /etc/sudoers.d/m918
