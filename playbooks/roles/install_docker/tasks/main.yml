@@ -1,0 +1,26 @@
+
+- name: Add Docker official GPG key
+  shell: "install -m 0755 -d /etc/apt/keyrings && curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc && chmod a+r /etc/apt/keyrings/docker.asc"
+  become: yes
+ 
+- name: Check if Docker is installed
+  become: yes
+  ansible.builtin.package:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+    state: present
+  register: package_results
+
+- name: Add {{ ansible_user }} user to docker group
+  user:
+    name: {{ ansible_user }}
+    groups: docker
+    append: yes
+  become: yes
+
+- name: Test Docker via hello-world image
+  command: "docker run hello-world"
