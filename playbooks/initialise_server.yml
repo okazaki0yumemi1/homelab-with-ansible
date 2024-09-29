@@ -1,13 +1,13 @@
-# - name: Create user m918 with permissions
-#   hosts: all
-#   roles:
-#     - create_user
+- name: Create users with permissions
+  hosts: all
+  roles:
+    - create_user
 
-# - name: Install & setup ssh server
-#   hosts: all
-#   roles:
-#     - setup_ssh
-#   become: yes
+- name: Install & setup ssh server
+  hosts: all
+  roles:
+    - setup_ssh
+  become: yes
 
 - name: Install Docker on remote machine
   hosts: all
