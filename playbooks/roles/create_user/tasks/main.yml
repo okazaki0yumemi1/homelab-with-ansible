@@ -1,0 +1,21 @@
+---
+  - name: Create user m918 for opizero2
+    user:
+      name: m918
+      groups: orangepi, tty, disk, dialout, sudo, audio, video, plugdev, games, users, systemd-journal, input, netdev, ssh, bluetooth
+      append: yes
+    become: yes
+  # - name: Create user m918
+  #   user:
+  #     name: m918
+  #     groups: wheel
+  #     append: yes
+  #   when: inventory_hostname != "opizero2"
+
+#probably will not work=
+  - name: Set up sudo for user m918 without password
+    copy:
+      dest: /etc/sudoers.d/m918
+      content: "m918 ALL=(ALL) NOPASSWD: ALL"
+      validate: "visudo -cf %s"
+    become: yes
