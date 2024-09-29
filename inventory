@@ -1,0 +1,8 @@
+[opizero2]
+192.168.88.200 ansible_user=orangepi
+
+[ai.host]
+192.168.88.254 ansible_user=m918
+
+[opi5plus]
+192.168.88.194 ansible_user=m918

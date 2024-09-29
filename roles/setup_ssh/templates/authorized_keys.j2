@@ -1,0 +1,2 @@
+# SSH public key for user {{ remote_user }}
+{{ ssh_public_key | trim | indent(4, firstline=false) }}

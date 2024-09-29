@@ -1,0 +1,66 @@
+---
+- name: Install and start Zabbix
+  gather_facts: true
+  become: true
+  hosts: homelab
+  tasks:
+
+    - name: Download Zabbix repository
+      ansible.builtin.get_url:
+        url: https://repo.zabbix.com/zabbix/6.4/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.4-1+ubuntu22.04_all.deb
+        dest: /home/m918/
+ 
+    - name: Add Zabbix repository
+      ansible.builtin.apt:
+        deb: zabbix-release_6.4-1+ubuntu22.04_all.deb
+
+    - name: Run the equivalent of "apt-get update" as a separate step
+      ansible.builtin.apt:
+        update_cache: yes
+
+    - name: Install Zabbix Server via apt
+      ansible.builtin.apt:
+        pkg: 
+        - zabbix-server-mysql
+        - zabbix-apache-conf 
+        - zabbix-sql-scripts
+        - mysql
+        state: latest
+
+    - name: Install Zabbix Frontend via apt
+      ansible.builtin.apt:
+        name: zabbix-frontend-php
+        state: latest
+
+    - name: Install Zabbix Agent via apt
+      ansible.builtin.apt:
+        name: zabbix-agent
+        state: latest
+
+    - name: Disable log trust function & create SQL password
+      ansible.builtin.shell:
+        cmd: mysql -uroot -p
+        cmd: 99802122
+        cmd: set global log_bin_trust_function_creators = 0;
+
+    - name: Import initial scheme and data on Zabbix host
+      ansible.builtin.shell:
+        cmd: zcat /usr/share/zabbix-sql-scripts/mysql/server.sql.gz | mysql --default-character-set=utf8mb4 -u zabbix -p 99802122
+        cmd: 99802122
+  
+    - name: Configure the database for Zabbix server
+      lineinfile:
+        path: /etc/zabbix/zabbix_server.conf 
+        regexp: DBPassword=*
+        replace: DBPassword=99802122
+        backup: yes
+  
+    - name: Start Zabbix server
+      ansible.builtin.shell:
+        cmd: systemctl restart zabbix-server apache2
+        cmd: systemctl enable zabbix-server apache2
+  
+    - name: Start Zabbix agent
+      ansible.builtin.shell:
+        cmd: systemctl restart zabbix-agent
+        cmd: systemctl enable zabbix-agent
