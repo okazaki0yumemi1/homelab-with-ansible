@@ -10,7 +10,7 @@
 
 - name: Ensure .ssh directory exists and has proper permissions
   file:
-    path: "/home/{{ ansible_user }}/.ssh"
+    path: "/home/m918/.ssh"
     state: directory
     mode: 0700
 
@@ -28,11 +28,11 @@
 - name: Append public key to authorized_keys file
   become: yes
   lineinfile:
-    path: "/home/{{ ansible_user }}/.ssh/authorized_keys"
+    path: "/home/m918/.ssh/authorized_keys"
     line: "{{ lookup('file', '~/.ssh/id_rsa_custom.pub') }}"
     state: present
 
-- name: Disable password login for {{ ansible_user }}
+- name: Enable password login for m918
   lineinfile:
     path: /etc/ssh/sshd_config
     regexp: '^PasswordAuthentication'
