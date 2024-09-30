@@ -1,5 +1,5 @@
 [opizero2] 
-192.168.88.200 ansible_user=m918 hostname=opizero2
+192.168.88.200 ansible_user=orangepi hostname=opizero2
 
 [ai.host]
 192.168.88.254 ansible_user=m918 hostname=ai.host
