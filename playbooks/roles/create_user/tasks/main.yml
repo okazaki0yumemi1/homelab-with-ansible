@@ -6,12 +6,12 @@
       append: yes
       password: "{{ pass }}"
     become: yes
-    when: hostname == 'opizero2' 
+    when: hostname == 'opizero2'
 
   - name: Create user m918
     user:
       name: m918
-      groups: m918, adm, cdrom, sudo, dip, plugdev, render, lpadmin, lxd, sambashare
+      groups: m918, sudo, render, video
       append: yes
       password: "{{ pass }}"
     when: hostname != 'opizero2'
