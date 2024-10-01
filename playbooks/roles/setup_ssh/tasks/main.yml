@@ -1,5 +1,5 @@
 - name: Install OpenSSH server
-  apt:
+  package:
     name: openssh-server
     state: present
 
@@ -14,6 +14,10 @@
     state: directory
     mode: 0700
 
+- name: Ensure authorized_keys file exists and has proper permissions
+  file:
+    path: "/home/m918/.ssh/authorized_keys"
+    state: touch
 # - name: Check if SSH key is present on the local machine
 #   delegate_to: localhost
 #   stat:
@@ -48,4 +52,3 @@
   systemd:
     name: sshd
     state: restarted
-    
