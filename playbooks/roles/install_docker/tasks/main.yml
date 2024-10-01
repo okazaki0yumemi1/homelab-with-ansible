@@ -1,11 +1,26 @@
+- name: Ensure necessary packages are present
+  package:
+    name:
+      - ca-certificates
+      - curl
+    state: present
+    update_cache: yes
 
 - name: Add Docker official GPG key
-  shell: "install -m 0755 -d /etc/apt/keyrings && curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc && chmod a+r /etc/apt/keyrings/docker.asc"
+  shell: "install -m 0755 -d /etc/apt/keyrings && curl -fsSL https://download.docker.com/linux/{{ distro }}/gpg -o /etc/apt/keyrings/docker.asc && chmod a+r /etc/apt/keyrings/docker.asc"
   become: yes
- 
+  #apt_repository:
+  #  repo: deb https://download.docker.com/linux/ubuntu bionic stable
+  #  state: present
+
+
+- name: Add apt repo to sources
+  shell: 'echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/{{ distro }}
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null'
+
 - name: Check if Docker is installed
   become: yes
-  ansible.builtin.package:
+  package:
     name:
       - docker-ce
       - docker-ce-cli
@@ -14,6 +29,11 @@
       - docker-compose-plugin
     state: present
   register: package_results
+
+- name: Create group docker
+  group:
+    name: docker
+    state: present
 
 - name: Add m918 user to docker group
   user:
