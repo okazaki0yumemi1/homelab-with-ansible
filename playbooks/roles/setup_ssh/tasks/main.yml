@@ -18,17 +18,7 @@
   file:
     path: "/home/m918/.ssh/authorized_keys"
     state: touch
-# - name: Check if SSH key is present on the local machine
-#   delegate_to: localhost
-#   stat:
-#     path: "/home/{{ ansible_user }}/my_public_key"
-#   register: ssh_key_stat
-
-# - name: Fail if SSH key is not found
-#  fail:
-#    msg: "SSH public key (my_public_key) not found on the local machine."
-#  when: not ssh_key_stat.stat.exists
-
+    
 - name: Append public key to authorized_keys file
   become: yes
   lineinfile:
