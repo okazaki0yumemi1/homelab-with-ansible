@@ -4,7 +4,6 @@
       - ca-certificates
       - curl
     state: present
-    update_cache: yes
 
 - name: Add Docker official GPG key
   shell: "install -m 0755 -d /etc/apt/keyrings && curl -fsSL https://download.docker.com/linux/{{ distro }}/gpg -o /etc/apt/keyrings/docker.asc && chmod a+r /etc/apt/keyrings/docker.asc"
@@ -41,6 +40,14 @@
     groups: docker
     append: yes
   become: yes
+
+- name: Add orangepi user to docker group
+  user:
+    name: orangepi
+    groups: docker
+    append: yes
+  become: yes
+  when: hostname == 'opizero2'
 
 - name: Test Docker via hello-world image
   command: "docker run hello-world"
