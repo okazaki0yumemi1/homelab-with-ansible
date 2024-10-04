@@ -1,0 +1,4 @@
+services:
+  - node_exporter
+  - semaphore
+  - dashdot

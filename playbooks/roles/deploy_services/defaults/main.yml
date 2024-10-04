@@ -1,0 +1,13 @@
+---
+node_exporter: 
+  name: "node_exporter"
+  port: "9100"
+prometheus: 
+  name: "prometheus"
+  port: "9090"
+semaphore: 
+  name: "semaphore"
+  port: "3000"
+dashdot:
+  name: "dashdot"
+  port: "799"

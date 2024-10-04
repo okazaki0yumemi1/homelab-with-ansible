@@ -1,0 +1,16 @@
+services: 
+  semaphore: 
+    image: semaphoreui/semaphore:latest
+    restart: unless-stopped 
+    volumes:
+        - ./data:/var/lib/semaphore
+        - ./config:/etc/semaphore
+        - ./tmp_config:/tmp/semaphore
+    ports:
+        - {{ semaphore.port }}:3000
+    environment:
+        - SEMAPHORE_DB_DIALECT=bolt
+        - SEMAPHORE_ADMIN=admin
+        - SEMAPHORE_ADMIN_PASSWORD=12345
+        - SEMAPHORE_ADMIN_NAME="Admin"
+        - SEMAPHORE_ADMIN_EMAIL=admin@localhost

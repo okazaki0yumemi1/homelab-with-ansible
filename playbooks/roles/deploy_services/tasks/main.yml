@@ -1,0 +1,8 @@
+---
+- name: Load variables
+  include_vars: 
+    file: "services.{{ hostname }}.yml"
+
+- name: Create Docker containers
+  include_tasks:
+    file: create_containers.yml

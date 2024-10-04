@@ -1,0 +1,16 @@
+services:
+  dash:
+    image: mauricenino/dashdot:latest
+    restart: unless-stopped
+    privileged: true
+    ports:
+      - {{ dashdot.port}}:3001
+    volumes:
+      - /:/mnt/host:ro
+    environment:
+      # DASHDOT_OVERRIDE_OS: 'Armbian 24.5.1 Jammy'
+      # DASHDOT_OVERRIDE_CPU_BRAND: 'Rockchip'
+      # DASHDOT_OVERRIDE_CPU_MODEL: 'RK3588'
+      # DASHDOT_OVERRIDE_RAM_TYPE: 'LPDDR4x'
+      #DASHDOT_OVERRIDE_CPU_CORES: '8'
+      DASHDOT_ENABLE_CPU_TEMPS: 'true'

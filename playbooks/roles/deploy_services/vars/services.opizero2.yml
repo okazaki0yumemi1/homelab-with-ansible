@@ -1,0 +1,3 @@
+services:
+  - node_exporter
+  - dashdot

@@ -1,0 +1,33 @@
+    - name: Create destination directory for Docker Compose files
+      file:
+        path: "/home/{{ ansible_user }}/services/{{ item }}"
+        state: directory
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: 0755
+      loop: "{{ services }}"
+
+    - name: Render Docker Compose template
+      template:
+        src: "{{ item }}.compose.j2"
+        dest: "/home/{{ ansible_user }}/services/{{ item }}/docker-compose.yml"
+      loop: "{{ services }}"
+
+    - name: Ensure Docker Compose file has proper permissions
+      file:
+        path: "/home/{{ ansible_user }}/services/{{ item }}/docker-compose.yml"
+        mode: 0644
+      loop: "{{ services }}"
+
+    - name: Deploy Docker Compose stack
+      command: docker compose -f /home/{{ ansible_user }}/services/{{ item }}/docker-compose.yml up -d --force-recreate 
+      loop: "{{ services }}"
+      become: yes
+
+    - name: Fix permissions for folder services
+      file:
+        path: "/home/{{ ansible_user }}/services"
+        state: directory
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        recurse: yes
