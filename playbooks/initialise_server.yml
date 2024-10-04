@@ -1,7 +1,9 @@
-#- name: Create users with permissions
-#  hosts: all
-#  roles:
-#    - create_user
+- name: Set permissions & groups
+  hosts: all
+  roles:
+   - create_user
+  become: yes
+
 
 - name: Install & setup ssh server
   hosts: all
@@ -14,3 +16,8 @@
   roles:
     - install_docker
   become: yes
+
+- name: Deploy services
+  hosts: all
+  roles:
+    - deploy_services
