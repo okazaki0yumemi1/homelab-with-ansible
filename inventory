@@ -8,7 +8,7 @@
 192.168.88.194 ansible_user=m918 hostname=opi5plus distro=ubuntu
 
 [opizero3]
-192.168.88.163 ansible_user=m918 hostname=opizero3 distro=ubuntu
+192.168.88.163 ansible_user=orangepi hostname=opizero3 distro=ubuntu
 
 [ubuntu-laptop]
 192.168.88.177 ansible_user=m918 hostname=ubuntu-laptop distro=ubuntu
