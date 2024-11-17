@@ -36,3 +36,9 @@ gitea-runner:
   runner_name:
   config: "./config.yaml"
   data: "./data"
+
+homeassistant:
+  name: "homeassistant"
+  config: "./config"
+  port: "8123"
+

@@ -1,3 +1,4 @@
 services:
   - node_exporter
   - dashdot
+  - homeassistant
