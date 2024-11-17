@@ -11,15 +11,15 @@
 version: '3.9'
 
 services:
-    archivebox:
+    {{ archivebox.name }}:
         #image: ${DOCKER_IMAGE:-archivebox/archivebox:dev}
         image: archivebox/archivebox:main
         command: server --quick-init 0.0.0.0:8000
         restart: unless-stopped
         ports:
-            - {{ archivebox_port  }}:8000
+            - {{ archivebox.port }}:8000
         volumes:
-            - {{ archivebox_data }}:/data
+            - {{ archivebox.data }}:/data
             # - ./etc/crontabs:/var/spool/cron/crontabs  # uncomment this and archivebox_scheduler below to set up automatic recurring archive jobs
             # - ./archivebox:/app/archivebox             # uncomment this to mount the ArchiveBox source code at runtime (for developers working on archivebox)
         # build: .                                       # uncomment this to build the image from source code at buildtime (for developers working on archivebox)
@@ -29,8 +29,8 @@ services:
             - PUBLIC_INDEX=False              # set to False to prevent anonymous users from viewing snapshot list
             - PUBLIC_SNAPSHOTS=False           # set to False to prevent anonymous users from viewing snapshot content
             - PUBLIC_ADD_VIEW=False           # set to True to allow anonymous users to submit new URLs to archive
-            - ADMIN_USERNAME={{ archivebox_login }}        # create an admin user on first run with the given user/pass combo
-            - ADMIN_PASSWORD={{ archivebox_password }}
+            - ADMIN_USERNAME={{ archivebox.login }}        # create an admin user on first run with the given user/pass combo
+            - ADMIN_PASSWORD={{ archivebox.password }}
             # - PUID=911                        # set to your host user's UID & GID if you encounter permissions issues
             # - PGID=911
             # - SEARCH_BACKEND_ENGINE=sonic     # uncomment these and sonic container below for better full-text search
@@ -160,10 +160,11 @@ services:
     #         - ./data:/archivebox
     #         - ./data/wayback:/webarchive
 
-networks:
-   default:
-      external: {{ network_external }}
-      name: {{ network_name }}
+#uncomment and add networks, don't forget to pass variables
+#networks:
+#   default:
+#      external: true or false
+#      name: netowrk_name
     # network needed for pihole container to offer :53 dns resolving on fixed ip for archivebox container
     #dns:
     #    ipam:

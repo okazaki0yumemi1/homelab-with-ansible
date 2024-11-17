@@ -1,5 +1,5 @@
 services: 
-  node_exporter: 
+  {{ node_exporter.name }}: 
     image: quay.io/prometheus/node-exporter:latest 
     container_name: node_exporter 
     command:

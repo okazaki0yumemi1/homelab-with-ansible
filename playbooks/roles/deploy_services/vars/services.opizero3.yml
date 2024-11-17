@@ -2,4 +2,4 @@ services:
   - node_exporter
   - semaphore
   - dashdot
-  - arhivebox
+  - archivebox

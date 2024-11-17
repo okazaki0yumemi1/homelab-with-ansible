@@ -1,5 +1,5 @@
 services: 
-  prometheus: 
+  {{ prometheus.name }}: 
     image: prom/prometheus 
     restart: unless-stopped 
     volumes:

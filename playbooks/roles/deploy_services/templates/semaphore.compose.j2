@@ -1,5 +1,5 @@
 services: 
-  semaphore: 
+  {{ semaphore.name }}: 
     image: semaphoreui/semaphore:latest
     restart: unless-stopped 
     volumes:

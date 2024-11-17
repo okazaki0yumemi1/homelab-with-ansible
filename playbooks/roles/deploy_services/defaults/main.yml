@@ -14,8 +14,8 @@ dashdot:
 archivebox:
   name: "archivebox"
   port: "8000"
-  archivebox_data: "./data"
-  archivebox_login: "test"
-  archivebox_password: "test"
+  data: "./data"
+  login: "test"
+  password: "test"
   #network_external: "true"
   #network_name: "nextcloud"
