@@ -2,21 +2,26 @@
 node_exporter:
   name: "node_exporter"
   port: "9100"
+
 prometheus:
   name: "prometheus"
   port: "9090"
+
 semaphore:
   name: "semaphore"
   port: "3000"
+
 dashdot:
   name: "dashdot"
   port: "799"
+
 archivebox:
   name: "archivebox"
   port: "8000"
   data: "./data"
   login: "test"
   password: "test"
+
 gitea:
   name: "gitea"
   data: "./data"
@@ -24,3 +29,10 @@ gitea:
   port_ssh: "22"
   db_path: "./mysql"
 
+gitea-runner:
+  name: "gitea-runner"
+  instance_url: "https://example.url.here"
+  token: "ur-token-here"
+  runner_name:
+  config: "./config.yaml"
+  data: "./data"

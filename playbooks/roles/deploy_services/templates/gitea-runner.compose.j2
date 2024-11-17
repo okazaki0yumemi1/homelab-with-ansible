@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  {{ gitea-runner.name }}:
+    image: gitea/act_runner:latest
+    environment:
+      CONFIG_FILE: ./config.yaml
+      GITEA_INSTANCE_URL: {{ gitea-runner.instance_url }}
+      GITEA_RUNNER_REGISTRATION_TOKEN: {{ gitea-runner.token }}
+      GITEA_RUNNER_NAME: {{ gitea-runner.runner_name }}
+      GITEA_RUNNER_LABELS: ubuntu-22.04:docker://node:16-bullseye
+    volumes:
+      - {{ gitea-runner.config }}:/config.yaml
+      - {{ gitea-runner.data }}:/data
+      - /var/run/docker.sock:/var/run/docker.sock
