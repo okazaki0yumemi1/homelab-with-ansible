@@ -42,3 +42,8 @@ homeassistant:
   config: "./config"
   port: "8123"
 
+komga:
+  name: "komga"
+  config: "./config"
+  data: "./pdfs"
+  port: "25600"

@@ -1,0 +1,24 @@
+---
+version: '3.3'
+services:
+  {{ komga.name }}:
+    image: gotson/komga
+    container_name: komga
+    volumes:
+      - type: bind
+        source: {{ komga.config }}
+        target: /config
+      - type: bind
+        source: {{ komga.data }}
+        target: /data
+      - type: bind
+        source: /etc/timezone #alternatively you can use a TZ environment variable, like TZ=Europe/London
+        target: /etc/timezone
+        read_only: true
+    ports:
+      - {{ komga.port }}:25600
+    user: "1000:1000"
+    # remove the whole environment section if you don't need it
+    #environment:
+    #  - <ENV_VAR>=<extra configuration>
+    restart: unless-stopped
