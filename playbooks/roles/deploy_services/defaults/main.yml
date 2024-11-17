@@ -1,13 +1,21 @@
 ---
-node_exporter: 
+node_exporter:
   name: "node_exporter"
   port: "9100"
-prometheus: 
+prometheus:
   name: "prometheus"
   port: "9090"
-semaphore: 
+semaphore:
   name: "semaphore"
   port: "3000"
 dashdot:
   name: "dashdot"
   port: "799"
+archivebox:
+  name: "archivebox"
+  port: "8000"
+  archivebox_data: "./data"
+  archivebox_login: "test"
+  archivebox_password: "test"
+  #network_external: "true"
+  #network_name: "nextcloud"
