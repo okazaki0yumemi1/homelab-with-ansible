@@ -17,5 +17,10 @@ archivebox:
   data: "./data"
   login: "test"
   password: "test"
-  #network_external: "true"
-  #network_name: "nextcloud"
+gitea:
+  name: "gitea"
+  data: "./data"
+  port: "3000"
+  port_ssh: "22"
+  db_path: "./mysql"
+

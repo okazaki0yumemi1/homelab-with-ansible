@@ -3,3 +3,4 @@ services:
   - semaphore
   - dashdot
   - archivebox
+  - gitea
