@@ -3,7 +3,7 @@ This is an Ansible Playbook with roles that I use to automate deployment and des
 
 ## What devices do you have?
 # Orange Pi Zero 3
-Nothing deployed there yet.
+Nothing deployed there yet. Yet!
 
 # Orange Pi Zero 2
 | Service name | Purpose | Public address |
