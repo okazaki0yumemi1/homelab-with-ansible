@@ -55,3 +55,17 @@ nextcloud:
   data: "./nextcloud_data"
   mem_limit: "4096M"
 
+npm:
+  admin_port: "81"
+  data: "./data"
+  certs: "./certs"
+
+photoprism:
+  name: "photoprism"
+  port: "2342"
+  jpeg_quality: "85"
+  admin_login: "admin"
+  admin_password: "insecure"
+  data: "./images"
+  cache: "./cache"
+  mariadb_data: "./mariadb_cache"
