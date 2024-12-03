@@ -4,7 +4,6 @@
    - ../roles/create_user
   become: yes
 
-
 - name: Install & setup ssh server
   hosts: all
   roles:
@@ -17,7 +16,14 @@
     - ../roles/install_docker
   become: yes
 
+
+- name: Install RKMPP
+  hosts: opi5plus
+  roles:
+    - ../roles/rkmpp
+
 - name: Deploy services
   hosts: all
   roles:
     - ../roles/deploy_services
+
