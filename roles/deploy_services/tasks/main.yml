@@ -1,8 +1,14 @@
 ---
 - name: Load variables
-  include_vars: 
+  include_vars:
     file: "services.{{ hostname }}.yml"
 
 - name: Create Docker containers
   include_tasks:
     file: create_containers.yml
+
+- name: Deploy non-conteinerized apps
+  include_tasks:
+    file: {{ item }}.app.yml
+  loop: "apps.{{ hostname }}.yml"
+

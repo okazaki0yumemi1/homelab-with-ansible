@@ -69,3 +69,11 @@ photoprism:
   data: "./images"
   cache: "./cache"
   mariadb_data: "./mariadb_cache"
+
+jellyfin:
+  name: "jellyfin"
+  config: "./config"
+  series: "./series"
+  movies: "./movies"
+  port: "8096"
+  privileged: true
