@@ -47,3 +47,11 @@ komga:
   config: "./config"
   data: "./pdfs"
   port: "25600"
+
+nextcloud:
+  name: "nextcloud-aio-mastercontainer"
+  mastercontainer_port: "mastercontainer_port"
+  apache_port: "11000"
+  data: "./nextcloud_data"
+  mem_limit: "4096M"
+
