@@ -1,0 +1,24 @@
+  - name: Check if you have necessary devices in /dev
+    command: 'ls -l /dev | grep -E "mpp|rga|dri|dma_heap"'
+    register: lines
+
+  - name: Fail without necessary devies
+    fail:
+      msg: "No necessary devices found in /dev. Check if you have kernel 5.10 or never and nececssary RKMPP drivers"
+    loop: "{{ ['mpp', 'rga', 'dri', 'dma_heap'] }}"
+    when: "'{{ item }}' not in lines"
+
+  - name: Render 99-rk-device-permissions.rules template
+    template:
+      src: "99-rk-device-permissions.rules.j2"
+      dest: "/etc/udev/rules.d/99-rk-device-permissions.rules"
+    become: true
+
+  - name: Reminder
+    debug: "You probably have to restart the server for the changes to take effect"
+
+  - name: Install packages
+    package:
+      - clinfo
+
+
