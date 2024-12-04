@@ -32,14 +32,3 @@
         group: "{{ ansible_user }}"
         recurse: yes
       become: yes
-
-    - name: Check if Jellyfin uses RKMPP HW acceleration
-      command: "docker exec -it jellyfin /usr/lib/jellyfin-ffmpeg/ffmpeg -v debug -init_hw_device rkmpp=rk -init_hw_device opencl=ocl@rk"
-      register: ffmpeg_output
-      when: "{{ item }} == jellyfin"
-      loop: "{{ services }}"
-      ignore_errors: true
-
-    - name: Print output
-      debug: "{{ ffmpeg_output }}"
-

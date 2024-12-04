@@ -12,3 +12,10 @@
     file: {{ item }}.app.yml
   loop: "apps.{{ hostname }}.yml"
 
+- name: Check if Jellyfin uses RKMPP HW acceleration
+  command: "docker exec -it jellyfin /usr/lib/jellyfin-ffmpeg/ffmpeg -v debug -init_hw_device rkmpp=rk -init_hw_device opencl=ocl@rk"
+  register: ffmpeg_output
+  ignore_errors: true
+
+- name: Print output
+  debug: "{{ ffmpeg_output.stdout }}"
