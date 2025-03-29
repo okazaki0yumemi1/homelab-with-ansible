@@ -51,3 +51,6 @@
 
 - name: Test Docker via hello-world image
   command: "docker run hello-world"
+
+- name: Stop and delete hello-world image
+  command: "docker down hello-world && docker image rm hello-world"
