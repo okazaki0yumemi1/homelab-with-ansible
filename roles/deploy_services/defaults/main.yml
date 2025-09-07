@@ -81,7 +81,8 @@ jellyfin:
   port: "8096"
   privileged: true
 
-open-webui:
-  name: "open-webui"
-  data: "./data"
-  port: "18080"
+ollama-webui-intel:
+  ollama-models: "./ollama/data"
+  ollama-logs: "./ollama/logs"
+  webui-port: "18080"
+  webui-data: "./webui/data"

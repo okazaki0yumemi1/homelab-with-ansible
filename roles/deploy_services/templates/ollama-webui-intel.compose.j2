@@ -1,0 +1,49 @@
+# Ollama with ipex (Intel iGPU acceleration) and
+services:
+  ipex_ollama:
+    image: ipex_ollama:latest
+    build:
+      dockerfile: ./Dockerfile
+    container_name: ipex_ollama
+    healthcheck:
+      test: ollama --version || exit 1
+      interval: 60s
+    ports:
+      - 11434:11434 # Expose port to use outside of webui
+    volumes:
+      - {{ ollama-webui-intel.ollama-models }}:/models # Change to use another location for model storage
+      - {{ ollama-webui-intel.ollama-logs }}./data/logs:/logs
+    devices:
+      - /dev/dri:/dev/dri
+    environment:
+      DEVICE: Arc  # Device to use, like Max, Flex, Arc or iGPU
+      OLLAMA_NUM_GPU: "999"
+      NO_PROXY: "localhost,127.0.0.1"
+      PATH: "/llm/ollama:$PATH"
+      ZES_ENABLE_SYSMAN: 1
+      SYCL_CACHE_PERSISTENT: 1
+      SYCL_PI_LEVEL_ZERO_USE_IMMEDIATE_COMMANDLISTS: 1  # [optional] under most circumstances, the variable may improve performance, but sometimes this may also cause performance degradation
+      ONEAPI_DEVICE_SELECTOR: "level_zero:0"  # [optional] if you want to run on single GPU, use the command to limit GPU may improve performance
+      OLLAMA_KEEP_ALIVE: "12h"
+      OLLAMA_HOST: "0.0.0.0"
+      OLLAMA_NUM_PARALLEL: 1  # Number of parallel request Ollama handle
+      OLLAMA_MODELS: "/models"  # Path to models storage
+      OLLAMA_NUM_CTX: 8192
+    # IPEX_LLM_QUANTIZE_KV_CACHE: 1  # It may be useful for some models
+    command: bash -c "/llm/ollama/ollama serve > /logs/ollama.log"
+  open-webui:
+    container_name: open-webui
+    image: ghcr.io/open-webui/open-webui:latest
+    ports:
+      - {{ ollama-webui-intel.webui-port }}:8080
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - {{ ollama-webui-intel.webui-data }}:/app/backend/data
+    restart: unless-stopped
+    depends_on:
+      ipex_ollama:
+        condition: service_started
+        restart: true
+    environment:
+      OLLAMA_BASE_URL: "http://ipex_ollama:11434"
