@@ -7,11 +7,11 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Etc/UTC
-      #- JELLYFIN_PublishedServerUrl=http://192.168.0.5 #optional
     volumes:
       - {{ jellyfin.config }}:/config
       - {{ jellyfin.series }}:/data/tvshows
       - {{ jellyfin.movies }}:/data/movies
+      - {{ jellyfin.yt }}:/data/youtube
     devices:
       - /dev/dri:/dev/dri
     ports:

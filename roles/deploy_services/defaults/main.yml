@@ -75,5 +75,6 @@ jellyfin:
   config: "./config"
   series: "./series"
   movies: "./movies"
+  yt: "./youtube"
   port: "8096"
   privileged: true
