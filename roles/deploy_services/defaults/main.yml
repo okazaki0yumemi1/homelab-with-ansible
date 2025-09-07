@@ -45,7 +45,9 @@ homeassistant:
 komga:
   name: "komga"
   config: "./config"
-  data: "./pdfs"
+  data: "./data"
+  zines: "./zines"
+  books: "./books"
   port: "25600"
 
 nextcloud:

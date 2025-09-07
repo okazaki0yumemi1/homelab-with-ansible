@@ -12,6 +12,12 @@ services:
         source: {{ komga.data }}
         target: /data
       - type: bind
+        source: {{ komga.zines }}
+        target: /zines
+      - type: bind
+        source: {{ komga.books }}
+        target: /books
+      - type: bind
         source: /etc/timezone #alternatively you can use a TZ environment variable, like TZ=Europe/London
         target: /etc/timezone
         read_only: true
