@@ -80,3 +80,8 @@ jellyfin:
   yt: "./youtube"
   port: "8096"
   privileged: true
+
+open-webui:
+  name: "open-webui"
+  data: "./data"
+  port: "18080"
