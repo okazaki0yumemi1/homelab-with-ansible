@@ -1,0 +1,41 @@
+- name: Ensure necessary packages are present
+  package:
+    name:
+      - ca-certificates
+      - curl
+    state: present
+
+- name: Check if Podman is installed
+  become: yes
+  package:
+    name:
+    - podman
+    - podman-compose
+    state: present
+  register: package_results
+
+- name: Create group podman
+  group:
+    name: podman
+    state: present
+
+- name: Add m918 user to podman group
+  user:
+    name: m918
+    groups: podman
+    append: yes
+  become: yes
+
+- name: Add orangepi user to podman group
+  user:
+    name: orangepi
+    groups: podman
+    append: yes
+  become: yes
+  when: hostname == 'opizero2'
+
+- name: Test Podman via hello-world image
+  command: "podman run hello-world"
+
+- name: Stop and delete hello-world container & image
+  command: "podman down hello-world && podman image rm hello-world"
