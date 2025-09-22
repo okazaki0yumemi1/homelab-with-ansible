@@ -26,14 +26,16 @@
       - va-driver-all
       - vainfo
     state: present
+  ignore_errors: true
 
-#- name: Install packages for ray-tracing & PyTorch support for Intel GPU
-#  package:
-#    name:
-#      - libze-dev
-#      - intel-ocloc
-#      - libze-intel-gpu-raytracing
-#    state: present
+- name: Install packages for ray-tracing & PyTorch support for Intel GPU
+  package:
+    name:
+      - libze-dev
+      - intel-ocloc
+      - libze-intel-gpu-raytracing
+    state: present
+  ignore_errors: true
 
 - name: Check if Intel GPU drivers are installed
   command: "clinfo | grep 'Device Name'"
