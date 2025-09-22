@@ -1,0 +1,51 @@
+- name: Ensure necessary packages are present
+  package:
+    name:
+      - software-properties-common
+    state: present
+
+- name: Install compute-related packages for Intel GPU
+  package:
+    name:
+      - libze-intel-gpu1
+      - libze1
+      - intel-metrics-discovery
+      - intel-opencl-icd
+      - clinfo
+      - intel-gsc
+    state: present
+
+- name: Install media-related packages for Intel GPU
+  package:
+    name:
+      - intel-media-va-driver-non-free
+      - libmfx-gen1
+      - libvpl2
+      - libvpl-tools
+      - libva-glx2
+      - va-driver-all
+      - vainfo
+    state: present
+
+#- name: Install packages for ray-tracing & PyTorch support for Intel GPU
+#  package:
+#    name:
+#      - libze-dev
+#      - intel-ocloc
+#      - libze-intel-gpu-raytracing
+#    state: present
+
+- name: Check if Intel GPU drivers are installed
+  command: "clinfo | grep 'Device Name'"
+  register: drivers_status
+  become: true
+
+- name: Check output
+  debug:
+    msg: "You have Intel GPU drivers installed properly, reboot your machine."
+  when: drivers_status != ""
+
+- name: Warn about incorrectly installed drivers
+  debug:
+    msg: "You have problems with Intel GPU drivers - no Intel GPUs were found."
+  when: drivers_status == ""

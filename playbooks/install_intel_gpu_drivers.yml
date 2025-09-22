@@ -1,0 +1,5 @@
+- name: Set permissions & groups
+  hosts: ai-host
+  roles:
+   - ../roles/install_intel_gpu_drivers
+  become: yes

@@ -1,14 +1,14 @@
 [opizero2] 
 192.168.88.200 ansible_user=orangepi hostname=opizero2 distro=debian
 
-[ai.host]
-192.168.88.254 ansible_user=m918 hostname=ai.host distro=ubuntu
-
 [opi5plus]
 192.168.88.194 ansible_user=m918 hostname=opi5plus distro=ubuntu
 
 [opizero3]
 192.168.88.163 ansible_user=orangepi hostname=opizero3 distro=ubuntu
+
+[ai-host]
+192.168.88.96 ansible_user=m918 hostname=ai-host distro=ubuntu
 
 #Dead machine, going to dispose of it soon (tm)
 #[ubuntu-laptop]
