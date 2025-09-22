@@ -86,3 +86,8 @@ ollama-webui-intel:
   ollama-logs: "./ollama/logs"
   webui-port: "18080"
   webui-data: "./webui/data"
+
+owncast:
+  ui-port: 8079
+  stream-port: 1935
+  data: "./data"
