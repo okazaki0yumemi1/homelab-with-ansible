@@ -16,7 +16,6 @@
     - ../roles/install_docker
   become: yes
 
-
 - name: Install RKMPP
   hosts: opi5plus
   roles:
