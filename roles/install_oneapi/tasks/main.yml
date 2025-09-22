@@ -1,0 +1,9 @@
+- name: Check oneAPI version
+  command: "ls /opt/intel/"
+  register: "oneapi_installed"
+
+- name: Install oneAPI from file
+  command: "sh ./intel-oneapi-base-toolkit-2025.1.0.651_offline.sh -a --silent --eula accept"
+  become: true
+  when: oneapi_installed == ""
+  ignore_errors: true

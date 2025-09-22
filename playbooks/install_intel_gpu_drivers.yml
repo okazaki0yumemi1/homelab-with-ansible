@@ -1,5 +1,11 @@
-- name: Set permissions & groups
+- name: Install drivers
   hosts: ai-host
   roles:
-   - ../roles/install_intel_gpu_drivers
+    - ../roles/install_intel_gpu_drivers
+  become: yes
+
+- name: Install oneAPI 2025.1 from file
+  hosts: ai-host
+  roles:
+    - ../roles/install_oneapi
   become: yes
