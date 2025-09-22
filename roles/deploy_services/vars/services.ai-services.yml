@@ -1,0 +1,4 @@
+services:
+  - whisper
+  - searxng
+  - node_exporter

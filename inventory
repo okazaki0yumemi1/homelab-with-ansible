@@ -10,6 +10,9 @@
 [ai-host]
 192.168.88.96 ansible_user=m918 hostname=ai-host distro=ubuntu
 
+[ai-services]
+192.168.88.117 ansible_user=m918 hostname=ai-services distro=ubuntu
+
 #Dead machine, going to dispose of it soon (tm)
 #[ubuntu-laptop]
 #192.168.88.177 ansible_user=m918 hostname=ubuntu-laptop distro=ubuntu
